@@ -30,6 +30,7 @@ python brute.py
 rm -rf Brute
 
 git clone https://github.com/Tech-jobayer-x/Brute.git
+
 cd Brute
 
 python brute.py
