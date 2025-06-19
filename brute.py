@@ -16,13 +16,13 @@ def banner():
   print(lines)
   print("""
    Tools Name   : \033[1;32mFacebook ID Bruteforcer\033[1;37m
-   Tools Author : \033[1;32mTEAM-STLP\033[1;37m
-   Github       : \033[1;32mgithub.com/STLP-TEAM\033[1;37m
-   Facebook     : \033[1;32mSpamming & Termux Learning Point\033[1;37m
+   Tools Author : \033[1;32mTECH-JOBAYER\033[1;37m
+   Youtube       : \033[1;32mYOUTUBE.COM/@TECHJOBAYER\033[1;37m
+   Facebook     : \033[1;32mNot Available Now\033[1;37m
   """)
   print(lines)
   upass=input("\n   [•] Enter Tool's Password: ")
-  if upass=="TEAM STLP" or upass == "Team Stlp" or upass == "team stlp" or upass == "Team STLP":
+  if upass=="X" or upass == "Jk" or upass == "JK" or upass == "x":
     slow("   [•] Password Correct")
     time.sleep(2)
     mbanner()
