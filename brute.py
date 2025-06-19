@@ -209,7 +209,3 @@ crack_file()
         print("Uid: "+victim)
         print("Password: "+pwd)
 """
-
-
-
-[Program finished]
