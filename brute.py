@@ -12,7 +12,7 @@ lines="\033[1;34m═\033[1;37m"*50
 def banner():
   os.system("clear")
   print("\n\n")
-  os.system("figlet -f slant TEAM-STLP |lolcat")
+  os.system("figlet -f slant JOBAYER |lolcat")
   print(lines)
   print("""
    Tools Name   : \033[1;32mFacebook ID Bruteforcer\033[1;37m
@@ -40,13 +40,13 @@ def banner():
 def mbanner():
   os.system("clear")
   print("\n\n")
-  os.system("figlet -f slant TEAM-STLP |lolcat")
+  os.system("figlet -f slant JOBAYER |lolcat")
   print(lines)
   print("""
    Tools Name   : \033[1;32mFacebook ID Bruteforcer\033[1;37m
-   Tools Author : \033[1;32mTEAM-STLP\033[1;37m
-   Github       : \033[1;32mgithub.com/STLP-TEAM\033[1;37m
-   Facebook     : \033[1;32mSpamming & Termux Learning Point\033[1;37m
+   Tools Author : \033[1;32mJOBAYER\033[1;37m
+   Github       : \033[1;32mgithub.com/tech-jobayer-x/brute\033[1;37m
+   Facebook     : \033[1;32mComing soon...\033[1;37m
   """)
 def menu():
   print(lines)
