@@ -227,6 +227,7 @@ def crack_file():
         print("\033[1;31m[!] Password file not found!\033[0m")
     except Exception as e:
         print(f"\033[1;31m[!] Fatal Error: {e}\033[0m")
+crack_file()
 """
         print("Password Found")
         print("Status: Successful")
